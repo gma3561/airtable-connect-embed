@@ -12,7 +12,7 @@ export const fetchProperties = async (params: SearchParams): Promise<PropertyLis
     f_property_status: params.propertyStatus || null,
     f_agent: params.agent || null,
     f_shared_only: params.sharedOnly || null,
-    limit_count: params.limit || 50,
+    limit_count: params.limit || 100,
     offset_count: params.offset || 0
   });
 

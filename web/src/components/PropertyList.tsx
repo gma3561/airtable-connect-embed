@@ -11,7 +11,7 @@ import LoadingState from './LoadingState'
 import EmptyState from './EmptyState'
 import ErrorState from './ErrorState'
 
-const DEFAULT_LIMIT = 50;
+const DEFAULT_LIMIT = 100;
 const DEFAULT_OFFSET = 0;
 
 const PropertyList = () => {
