@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import cors from "cors";
 import { PropertyController } from "./PropertyController.js";
 
@@ -8,7 +8,7 @@ app.use(express.json());
 
 const propertyController = new PropertyController();
 
-app.get("/api/health", (_req, res) => res.json({ ok: true }));
+app.get("/api/health", (_req: Request, res: Response) => res.json({ ok: true }));
 app.get("/api/properties/search", propertyController.search);
 
 const port = Number(process.env.PORT || 8787);
