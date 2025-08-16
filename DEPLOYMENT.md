@@ -1,11 +1,32 @@
-# Vercel 배포 가이드
+# 배포 가이드 (GitHub Pages + Vercel)
 
 ## 사전 준비사항
 1. Vercel 계정
 2. Supabase 프로젝트
 3. GitHub 저장소
 
-## 배포 단계
+## GitHub Pages 배포 (권장: main push 자동 배포)
+
+메인 브랜치 푸시 시 GitHub Actions가 다음을 수행합니다.
+
+1) Playwright(MCP 게이트) 실행 – 기본 로드 스모크 테스트
+2) 웹 빌드
+3) GitHub Pages 배포(`web/dist`)
+
+필요 환경변수(로컬/CI):
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+로컬에서 미리보기 테스트:
+```bash
+cd web
+npm install
+echo VITE_SUPABASE_URL=https://dummy.supabase.co > .env
+echo VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.dummy >> .env
+npm run build && npm run preview
+```
+
+## Vercel 배포 가이드
 
 ### 1. GitHub에 코드 푸시
 ```bash
@@ -30,7 +51,8 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 
 # 프론트엔드용 (Production)
-VITE_API_BASE_URL=https://your-project.vercel.app
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
 ### 4. 배포
@@ -51,14 +73,16 @@ PORT=8787
 ### 클라이언트 환경변수 (.env)
 ```bash
 # web/.env
-VITE_API_BASE_URL=http://localhost:8787
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
 ### 개발 서버 실행
 ```bash
-# 루트 디렉토리에서
-npm run install:all  # 최초 1회
-npm run dev         # 서버와 클라이언트 동시 실행
+# 루트 디렉토리에서 (프론트 미리보기)
+cd web
+npm install
+npm run build && npm run preview
 ```
 
 ## 주의사항

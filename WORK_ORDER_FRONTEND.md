@@ -2,7 +2,7 @@
 
 ## 1. 목적
 - 혼재 입력(텍스트/숫자)을 그대로 수용하는 매물 리스트/검색 중심의 MVP UI 구현
-- 백엔드 `/api/properties/search` 연동, 빠른 응답/가시성/접근성을 갖춘 업무 도구 제공
+- Supabase RPC `search_properties` 직접 호출 연동, 빠른 응답/가시성/접근성을 갖춘 업무 도구 제공
 - 이후 V2(권한/광고/정규화 주소/숫자 가격)로 무중단 확장 가능하도록 구조화
 
 ## 2. 범위 (In-Scope)
@@ -20,34 +20,10 @@
 
 참고: 현 저장소에는 정적 PWA 셸(`index.html`, `app.js`)이 존재. 새 React 앱은 `/web` 하위에 구성 권장.
 
-## 4. API 계약
-- Endpoint: `GET /api/properties/search`
-- Query Params:
-  - `q`(string), `propertyType`(string), `transactionType`(string), `propertyStatus`(string), `agent`(string)
-  - `sharedOnly`(boolean: "true" | "false")
-  - `limit`(1..200, 기본 50), `offset`(>=0)
-- 200 OK 응답:
-```json
-{
-  "items": [
-    {
-      "id": "uuid",
-      "registrationDate": "YYYY-MM-DD" | null,
-      "sharedStatus": true | false | null,
-      "agent": "string" | null,
-      "propertyStatus": "string" | null,
-      "propertyType": "string" | null,
-      "transactionType": "string" | null,
-      "price": "string" | null,
-      "propertyName": "string" | null,
-      "buildingDong": "string" | null,
-      "buildingHo": "string" | null,
-      "address": "string" | null,
-      "updatedAt": "ISO8601"
-    }
-  ]
-}
-```
+## 4. 데이터 계약 (Supabase RPC)
+- RPC: `search_properties(q, f_property_type, f_transaction_type, f_property_status, f_agent, f_shared_only, limit_count, offset_count)`
+- 파라미터 매핑: `q` ↔ 검색어, `f_*` ↔ 필터, `limit_count` 기본 50, `offset_count` 기본 0
+- 응답: 행 배열 → 프론트에서 `PropertyListItem`으로 매핑하여 `{ items }` 형태로 사용
 
 ## 5. 타입 정의(프론트 공용)
 ```ts
@@ -124,7 +100,7 @@ export interface SearchParams {
 - 콘솔 로깅 최소화, 필요 시 Sentry 등 연계 여지 남김
 
 ## 12. 환경설정
-- `API_BASE_URL` (기본 same-origin). 프록시 또는 `.env` 로 주입 가능.
+- `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` 필수. Supabase와 동일 리전 사용 권장.
 - 개발 모드에서 CORS 고려(서버는 CORS 허용 이미 설정)
 
 ## 13. 테스트
@@ -144,7 +120,7 @@ export interface SearchParams {
 ## 15. 체크리스트
 - [ ] 검색 입력 200ms 디바운스
 - [ ] URL 쿼리 동기화(q/filters/limit/offset)
-- [ ] 테이블 50행 페이지네이션
+- [x] 테이블 50행 페이지네이션
 - [ ] 로딩/빈/에러 상태
 - [ ] 반응형(모바일/데스크톱)
 - [ ] 접근성 라벨/포커스/명도 대비

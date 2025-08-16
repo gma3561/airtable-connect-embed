@@ -11,7 +11,7 @@ import LoadingState from './LoadingState'
 import EmptyState from './EmptyState'
 import ErrorState from './ErrorState'
 
-const DEFAULT_LIMIT = 100;
+const DEFAULT_LIMIT = 50;
 const DEFAULT_OFFSET = 0;
 
 const PropertyList = () => {
@@ -29,7 +29,8 @@ const PropertyList = () => {
   useEffect(() => {
     const newSearchParams = updateURLSearchParams(searchParams, params);
     setSearchParams(newSearchParams);
-  }, [params, searchParams, setSearchParams]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params, setSearchParams]);
   
   // Fetch data using React Query
   const { data, isLoading, isError, error, refetch } = usePropertySearch(params) as { data: PropertyListResponse | undefined, isLoading: boolean, isError: boolean, error: unknown, refetch: () => void };
@@ -44,7 +45,7 @@ const PropertyList = () => {
   };
   
   // Update filters
-  const handleFilterChange = (name: keyof SearchParams, value: any) => {
+  const handleFilterChange = (name: keyof SearchParams, value: string | boolean) => {
     setParams((prev) => ({
       ...prev,
       [name]: value === "" ? undefined : value,
