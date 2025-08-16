@@ -42,7 +42,8 @@ class MCPServerManager {
       { name: 'context7', path: './mcp-servers/context7', port: 3002 },
       { name: 'magic', path: './mcp-servers/magic', port: 3003 },
       { name: 'playwright', path: './mcp-servers/playwright', port: 3004 },
-      { name: 'ide', path: './mcp-servers/ide', port: 3005 }
+      { name: 'ide', path: './mcp-servers/ide', port: 3005 },
+      { name: 'github', path: './mcp-servers/github', port: 3006 }
     ];
 
     for (const config of serverConfigs) {

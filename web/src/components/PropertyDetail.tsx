@@ -119,14 +119,12 @@ const PropertyDetail = () => {
             </p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">준공일</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <label className="block text-sm font-medium text-gray-700">재등록 사유</label>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).reregistrationReason || '-'}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">등록일</label>
-            <p className="mt-1 text-sm text-gray-900">
-              {property.registrationDate ? new Date(property.registrationDate).toLocaleDateString('ko-KR') : '-'}
-            </p>
+            <p className="mt-1 text-sm text-gray-900">{property.registrationDate || '-'}</p>
           </div>
         </div>
       </div>
@@ -140,16 +138,16 @@ const PropertyDetail = () => {
             <p className="mt-1 text-sm text-gray-900">{property.price || '-'}</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">월세</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <label className="block text-sm font-medium text-gray-700">임차금액</label>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).rentalAmount || '-'}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">계약기간</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).contractPeriod || '-'}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">거주자</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).resident || '-'}</p>
           </div>
         </div>
       </div>
@@ -160,15 +158,15 @@ const PropertyDetail = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">담당자 메모</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{(property as any).agentMemo || '-'}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">특이사항</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900 whitespace-pre-wrap">{(property as any).specialNotes || '-'}</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">재등록 사유</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <label className="block text-sm font-medium text-gray-700">거래완료날짜</label>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).completionDate || '-'}</p>
           </div>
         </div>
       </div>
@@ -179,15 +177,15 @@ const PropertyDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">사진</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).photos?.length ? `${(property as any).photos.length}개` : '-'}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">영상</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).videos?.length ? `${(property as any).videos.length}개` : '-'}</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">문서</label>
-            <p className="mt-1 text-sm text-gray-900">-</p>
+            <p className="mt-1 text-sm text-gray-900">{(property as any).documents?.length ? `${(property as any).documents.length}개` : '-'}</p>
           </div>
         </div>
       </div>

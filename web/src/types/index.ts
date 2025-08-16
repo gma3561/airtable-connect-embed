@@ -14,6 +14,21 @@ export interface PropertyListItem {
   updatedAt: string;
 }
 
+// Detailed view type with additional optional fields
+export interface PropertyDetail extends PropertyListItem {
+  contractPeriod?: string | null;
+  rentalAmount?: string | null;
+  rentalType?: string | null;
+  resident?: string | null;
+  completionDate?: string | null;
+  reregistrationReason?: string | null;
+  agentMemo?: string | null;
+  specialNotes?: string | null;
+  photos?: string[] | null;
+  videos?: string[] | null;
+  documents?: string[] | null;
+}
+
 export interface SearchParams {
   q?: string;
   propertyType?: string;
