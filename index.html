@@ -12,6 +12,7 @@
   <link rel="manifest" href="manifest.webmanifest" />
   <link rel="icon" href="icon.svg" type="image/svg+xml" />
   <link rel="mask-icon" href="icon.svg" color="#0f172a" />
+  <link rel="stylesheet" href="app.css" />
   <style>
     html, body { height: 100%; margin: 0; }
     body { -webkit-font-smoothing: antialiased; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple SD Gothic Neo, Noto Sans KR, sans-serif; }
@@ -24,9 +25,55 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <iframe class="airtable-embed" src="https://airtable.com/embed/appKN0bn1CopVtAAe/shrJXppEYLVBtm8XC?viewControls=on" title="Airtable" allow="clipboard-read; clipboard-write" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">매물 검색</div>
+      <div class="header-actions">
+        <button id="openSettingsBtn" aria-label="설정" class="icon-btn">⚙️</button>
+      </div>
+    </header>
+    <section class="toolbar">
+      <input id="searchInput" type="search" placeholder="매물명 또는 지역 검색" autocomplete="off" />
+      <select id="typeFilter">
+        <option value="">매물유형: 전체</option>
+        <option>아파트</option>
+        <option>단독주택</option>
+        <option>빌라/연립</option>
+        <option>오피스텔</option>
+        <option>타운하우스</option>
+      </select>
+      <select id="statusFilter">
+        <option value="">상태: 전체</option>
+        <option>확인필요</option>
+        <option>매물철회</option>
+        <option>거래완료</option>
+        <option>렌트로 계약</option>
+      </select>
+    </section>
+    <main id="list" class="list" aria-live="polite"></main>
+    <div id="loadMoreWrap" class="load-more-wrap"><button id="loadMoreBtn">더 보기</button></div>
+  
+    <dialog id="detailDialog" class="detail-dialog"></dialog>
+
+    <dialog id="settingsDialog" class="settings-dialog">
+      <form method="dialog">
+        <h2>설정</h2>
+        <label>Supabase URL
+          <input id="sbUrlInput" type="url" placeholder="https://YOUR_PROJECT.supabase.co" required />
+        </label>
+        <label>Anon Key
+          <textarea id="sbKeyInput" rows="4" placeholder="ey..." required></textarea>
+        </label>
+        <p class="hint">키는 기기에만 저장됩니다(localStorage). 공개 데이터만 사용하세요. RLS로 읽기 권한을 제한해야 합니다.</p>
+        <menu class="dialog-actions">
+          <button value="cancel">취소</button>
+          <button id="saveSettingsBtn" value="default">저장</button>
+        </menu>
+      </form>
+    </dialog>
   </div>
+
+  <script type="module" src="app.js"></script>
   <script>
     (function registerServiceWorker() {
       if ('serviceWorker' in navigator) {
