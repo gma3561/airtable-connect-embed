@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import type { PropertyListItem } from '../types'
 
 interface PropertyTableProps {
@@ -8,6 +8,7 @@ interface PropertyTableProps {
 }
 
 const PropertyTable = ({ properties, isLoading, searchQuery }: PropertyTableProps) => {
+  const navigate = useNavigate();
   if (isLoading) {
     return <TableSkeleton />
   }
@@ -75,7 +76,11 @@ const PropertyTable = ({ properties, isLoading, searchQuery }: PropertyTableProp
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {properties.map((property) => (
-              <tr key={property.id} className="hover:bg-gray-50">
+              <tr 
+                key={property.id} 
+                className="hover:bg-gray-50 cursor-pointer transition-colors"
+                onClick={() => navigate(`/property/${property.id}`)}
+              >
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {property.registrationDate ? new Date(property.registrationDate).toLocaleDateString('ko-KR') : '-'}
                 </td>
@@ -109,12 +114,9 @@ const PropertyTable = ({ properties, isLoading, searchQuery }: PropertyTableProp
                   {property.price}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-900">
-                  <Link 
-                    to={`/property/${property.id}`}
-                    className="text-blue-600 hover:text-blue-800 font-medium hover:underline"
-                  >
+                  <span className="text-blue-600 hover:text-blue-800 font-medium hover:underline">
                     {property.propertyName}
-                  </Link>
+                  </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {property.buildingDong && property.buildingHo 
