@@ -1,6 +1,5 @@
 import type { SearchParams } from "../types";
 import SelectField from "./SelectField";
-import CheckboxField from "./CheckboxField";
 
 // Mock data for select options - would typically come from an API or constants file
 const PROPERTY_TYPES = [
@@ -25,63 +24,48 @@ const PROPERTY_STATUS = [
   { value: "보류", label: "보류" },
 ];
 
-const AGENTS = [
-  { value: "김부동", label: "김부동" },
-  { value: "이공인", label: "이공인" },
-  { value: "박소현", label: "박소현" },
-  { value: "최중개", label: "최중개" },
-];
-
 interface FiltersPanelProps {
   filters: SearchParams;
-  onFilterChange: (name: keyof SearchParams, value: any) => void;
+  onFilterChange: (name: keyof SearchParams, value: string | boolean) => void;
 }
 
 const FiltersPanel = ({ filters, onFilterChange }: FiltersPanelProps) => {
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border mb-6">
-      <h2 className="text-lg font-medium text-gray-900 mb-4">필터</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        <SelectField
-          id="propertyType"
-          label="매물 종류"
-          value={filters.propertyType}
-          onChange={(value) => onFilterChange("propertyType", value)}
-          options={PROPERTY_TYPES}
-        />
-        
-        <SelectField
-          id="transactionType"
-          label="거래 유형"
-          value={filters.transactionType}
-          onChange={(value) => onFilterChange("transactionType", value)}
-          options={TRANSACTION_TYPES}
-        />
-        
-        <SelectField
-          id="propertyStatus"
-          label="진행 상태"
-          value={filters.propertyStatus}
-          onChange={(value) => onFilterChange("propertyStatus", value)}
-          options={PROPERTY_STATUS}
-        />
-        
-        <SelectField
-          id="agent"
-          label="담당자"
-          value={filters.agent}
-          onChange={(value) => onFilterChange("agent", value)}
-          options={AGENTS}
-        />
-        
-        <div className="flex items-end">
-          <CheckboxField
-            id="sharedOnly"
-            label="공유 매물만 보기"
-            checked={filters.sharedOnly || false}
-            onChange={(checked) => onFilterChange("sharedOnly", checked)}
+    <div className="bg-white px-4 py-3 rounded-lg shadow-sm border mb-6">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3">
+        <div className="flex flex-wrap gap-3">
+          <SelectField
+            id="propertyType"
+            label="매물 종류"
+            value={filters.propertyType}
+            onChange={(value) => onFilterChange("propertyType", value)}
+            options={PROPERTY_TYPES}
           />
+          <SelectField
+            id="transactionType"
+            label="거래 유형"
+            value={filters.transactionType}
+            onChange={(value) => onFilterChange("transactionType", value)}
+            options={TRANSACTION_TYPES}
+          />
+          <SelectField
+            id="propertyStatus"
+            label="진행 상태"
+            value={filters.propertyStatus}
+            onChange={(value) => onFilterChange("propertyStatus", value)}
+            options={PROPERTY_STATUS}
+          />
+        </div>
+        <div className="flex items-center gap-2">
+          <button type="button" className="px-3 py-2 text-sm border rounded-lg hover:bg-gray-50">Filter</button>
+          <button type="button" className="px-3 py-2 text-sm border rounded-lg hover:bg-gray-50">
+            Sort <span className="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-700 text-xs">1</span>
+          </button>
+          <button type="button" aria-label="검색" className="p-2 border rounded-lg hover:bg-gray-50">
+            <svg className="w-4 h-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
       </div>
     </div>

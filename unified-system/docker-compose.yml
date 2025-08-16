@@ -72,9 +72,12 @@ services:
       - CLAUDE_API_KEY=${CLAUDE_API_KEY}
       - GITHUB_TOKEN=${GITHUB_TOKEN}
       - CURSOR_TOKEN=${CURSOR_TOKEN}
+      - CURSOR_AGENT_SESSION_PATH=/app/cursor-sessions
     volumes:
       - ./ai-configs:/app/configs
       - ai-cache:/app/cache
+      - cursor-sessions:/app/cursor-sessions
+      - ~/.local/bin/cursor-agent:/usr/local/bin/cursor-agent:ro
     restart: unless-stopped
 
   # Supabase 로컬 인스턴스
@@ -153,6 +156,7 @@ volumes:
   tailscale-state:
   mcp-data:
   ai-cache:
+  cursor-sessions:
   supabase-data:
   redis-data:
   postgres-data:

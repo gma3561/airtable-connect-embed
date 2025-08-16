@@ -27,6 +27,11 @@ class UnifiedAICLI {
         aliases: ['cur'],
         description: 'Cursor Editor CLI'
       },
+      cursorAgent: {
+        command: 'cursor-agent',
+        aliases: ['ca', 'agent'],
+        description: 'Cursor AI Agent for terminal coding'
+      },
       github: {
         command: 'gh',
         aliases: ['copilot'],

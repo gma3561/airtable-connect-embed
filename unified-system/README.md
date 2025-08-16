@@ -50,6 +50,12 @@ ucli ai claude "React 컴포넌트 생성"
 # Cursor 열기
 ucli ai cursor "."
 
+# Cursor Agent (터미널 AI 코딩)
+ucli ai cursorAgent "refactor auth module to use JWT"
+# 또는 별칭 사용
+ca "find and fix performance issues"
+agent resume  # 이전 대화 이어가기
+
 # GitHub Copilot CLI
 ucli ai github "copilot suggest 'git 커밋 메시지'"
 

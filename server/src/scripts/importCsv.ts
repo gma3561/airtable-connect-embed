@@ -36,31 +36,11 @@ function isTruthy(value: string | null | undefined): boolean | null {
   return ['true', '1', 'y', 'yes', 't', 'o', 'on', '예', 'true'].includes(normalized);
 }
 
-function parseDateOnly(value: string | null | undefined): string | null {
-  if (!value) return null;
+// Keep date text exactly as provided (trim only)
+function keepDateAsIs(value: string | null | undefined): string | null {
+  if (value == null) return null;
   const v = String(value).trim();
-  if (!v) return null;
-  // Normalize common formats to YYYY-MM-DD
-  // 1) 2021-12-29
-  const iso = v.match(/^\d{4}-\d{2}-\d{2}$/);
-  if (iso) return v;
-  // 2) 2021.12.29 or 2021.12.9
-  const dot = v.match(/^(\d{4})[.](\d{1,2})[.](\d{1,2})/);
-  if (dot) {
-    const y = dot[1] ?? '';
-    const m = (dot[2] ?? '').padStart(2, '0');
-    const d = (dot[3] ?? '').padStart(2, '0');
-    if (y && m && d) return `${y}-${m}-${d}`;
-  }
-  // 3) 2014.01 /네이버 1992년 01월 31일 -> try to extract first YYYY.MM.DD or YYYY년 M월 D일
-  const kor = v.match(/(\d{4})\s*[년.\/-]\s*(\d{1,2})\s*[월.\/-]\s*(\d{1,2})/);
-  if (kor) {
-    const y = kor[1] ?? '';
-    const m = (kor[2] ?? '').padStart(2, '0');
-    const d = (kor[3] ?? '').padStart(2, '0');
-    if (y && m && d) return `${y}-${m}-${d}`;
-  }
-  return null; // keep as null if not a clean date-only field
+  return v === '' ? null : v;
 }
 
 function mapRecordToDbRow(record: Record<string, any>): Record<string, any> {
@@ -72,7 +52,7 @@ function mapRecordToDbRow(record: Record<string, any>): Record<string, any> {
     if (dbField === 'shared_status') {
       value = isTruthy(value);
     } else if (dbField === 'registration_date') {
-      value = parseDateOnly(value);
+      value = keepDateAsIs(value);
     } else {
       // Keep text fields as-is (trim trailing/leading whitespace)
       if (typeof value === 'string') {

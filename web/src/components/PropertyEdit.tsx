@@ -52,10 +52,13 @@ const PropertyEdit = () => {
   }, [id]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target as any;
+    const target = e.target as HTMLInputElement | HTMLSelectElement;
+    const { name } = target;
+    const isCheckbox = (target as HTMLInputElement).type === 'checkbox';
+    const value = isCheckbox ? (target as HTMLInputElement).checked : target.value;
     setForm((prev) => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: value
     }));
   };
 

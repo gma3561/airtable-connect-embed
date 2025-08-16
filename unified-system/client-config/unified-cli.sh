@@ -126,6 +126,8 @@ fi
 alias uc=ucli
 alias claude="ucli ai claude"
 alias cursor="ucli ai cursor"
+alias ca="ucli ai cursorAgent"
+alias agent="ucli ai cursorAgent"
 alias gh="ucli ai github"
 alias sb="ucli ai supabase"
 
@@ -139,7 +141,7 @@ _ucli_completion() {
             COMPREPLY=( $(compgen -W "sequential context7 magic playwright ide" -- "$cur") )
             ;;
         ai)
-            COMPREPLY=( $(compgen -W "claude cursor github supabase" -- "$cur") )
+            COMPREPLY=( $(compgen -W "claude cursor cursorAgent github supabase" -- "$cur") )
             ;;
         *)
             COMPREPLY=( $(compgen -W "mcp ai workflow distributed status login help" -- "$cur") )

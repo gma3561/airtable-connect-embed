@@ -1,14 +1,13 @@
-import { useNavigate } from 'react-router-dom'
 import type { PropertyListItem } from '../types'
 
 interface PropertyTableProps {
   properties: PropertyListItem[]
   isLoading?: boolean
   searchQuery?: string
+  onRowClick?: (id: string) => void
 }
 
-const PropertyTable = ({ properties, isLoading, searchQuery }: PropertyTableProps) => {
-  const navigate = useNavigate();
+const PropertyTable = ({ properties, isLoading, searchQuery, onRowClick }: PropertyTableProps) => {
   if (isLoading) {
     return <TableSkeleton />
   }
@@ -69,27 +68,38 @@ const PropertyTable = ({ properties, isLoading, searchQuery }: PropertyTableProp
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 매물명
               </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">동/호</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                동/호
+                공급/전용(㎡)
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                공급/전용(평)
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                해당층/총층
               </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {properties.map((property) => (
-              <tr 
-                key={property.id} 
+              <tr
+                key={property.id}
                 className="hover:bg-gray-50 cursor-pointer transition-colors"
-                onClick={() => navigate(`/property/${property.id}`)}
+                onClick={() => onRowClick ? onRowClick(property.id) : undefined}
               >
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {property.registrationDate ? new Date(property.registrationDate).toLocaleDateString('ko-KR') : '-'}
+                  {property.registrationDate || '-'}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
-                    property.sharedStatus ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                  }`}>
-                    {property.sharedStatus ? '공유' : '비공유'}
-                  </span>
+                  {property.sharedStatus === null ? (
+                    <span className="inline-flex px-2 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">-</span>
+                  ) : (
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      property.sharedStatus ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {property.sharedStatus ? '공유' : '비공유'}
+                    </span>
+                  )}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {property.agent}
@@ -124,6 +134,21 @@ const PropertyTable = ({ properties, isLoading, searchQuery }: PropertyTableProp
                     : '-'
                   }
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                  {property.areaSupplySqm || property.areaExclusiveSqm
+                    ? `${property.areaSupplySqm ?? '-'}㎡/${property.areaExclusiveSqm ?? '-'}㎡`
+                    : '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                  {property.areaSupplyPy || property.areaExclusivePy
+                    ? `${property.areaSupplyPy ?? '-'}평/${property.areaExclusivePy ?? '-'}평`
+                    : '-'}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-right text-gray-900">
+                  {property.floor || property.floorsTotal
+                    ? `${property.floor ?? '-'}/${property.floorsTotal ?? '-'}층`
+                    : '-'}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -140,7 +165,7 @@ const TableSkeleton = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              {Array.from({ length: 9 }).map((_, i) => (
+              {Array.from({ length: 12 }).map((_, i) => (
                 <th key={i} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
                 </th>
@@ -150,7 +175,7 @@ const TableSkeleton = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {Array.from({ length: 5 }).map((_, rowIndex) => (
               <tr key={rowIndex}>
-                {Array.from({ length: 9 }).map((_, colIndex) => (
+                {Array.from({ length: 12 }).map((_, colIndex) => (
                   <td key={colIndex} className="px-6 py-4 whitespace-nowrap">
                     <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
                   </td>

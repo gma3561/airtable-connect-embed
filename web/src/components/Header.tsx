@@ -2,27 +2,20 @@ import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-[#6B2337] text-white border-b border-[#5a1e2f]">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">🏠</span>
-            </div>
-            <h1 className="text-xl font-semibold text-gray-900">부동산 매물 관리</h1>
-          </Link>
-          
-          <nav className="flex items-center space-x-6">
-            <Link 
-              to="/" 
-              className="text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              매물 목록
+        <div className="flex items-center justify-between h-12">
+          <div className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center space-x-2">
+              <div className="w-6 h-6 bg-white/10 rounded flex items-center justify-center">
+                <span className="text-white text-sm">🏠</span>
+              </div>
+              <span className="text-sm opacity-80">Interface</span>
+              <span className="text-sm">더부동산 임시매물장</span>
             </Link>
-            <Link 
-              to="/property/new" 
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-            >
+          </div>
+          <nav className="flex items-center space-x-4">
+            <Link to="/property/new" className="px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 text-sm">
               매물 등록
             </Link>
           </nav>
