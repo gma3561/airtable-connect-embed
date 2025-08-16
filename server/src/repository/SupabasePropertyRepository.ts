@@ -41,4 +41,28 @@ export class SupabasePropertyRepository {
       updatedAt: row.updated_at
     }));
   }
+
+  async create(dbPayload: Record<string, any>): Promise<string> {
+    const client = getSupabaseServiceClient();
+    const { data, error } = await client
+      .from('properties')
+      .insert(dbPayload)
+      .select('id')
+      .single();
+    if (error) {
+      throw new Error(`Create failed: ${(error as PostgrestError).message}`);
+    }
+    return data!.id as string;
+  }
+
+  async update(id: string, dbPayload: Record<string, any>): Promise<void> {
+    const client = getSupabaseServiceClient();
+    const { error } = await client
+      .from('properties')
+      .update(dbPayload)
+      .eq('id', id);
+    if (error) {
+      throw new Error(`Update failed: ${(error as PostgrestError).message}`);
+    }
+  }
 }

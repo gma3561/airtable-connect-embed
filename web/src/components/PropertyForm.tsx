@@ -1,0 +1,109 @@
+import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { createProperty } from '../services/api'
+import type { PropertyCreateRequest } from '../types'
+
+const PropertyForm = () => {
+  const navigate = useNavigate();
+  const [form, setForm] = useState<PropertyCreateRequest>({
+    propertyName: '',
+    address: '',
+    agent: '',
+    propertyType: '',
+    transactionType: '',
+    propertyStatus: '',
+    sharedStatus: false
+  });
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type, checked } = e.target as any;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    if (!form.propertyName.trim()) {
+      setError('매물명은 필수입니다.');
+      return;
+    }
+    try {
+      setSubmitting(true);
+      await createProperty(form);
+      navigate('/');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : '생성 중 오류가 발생했습니다.');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* 헤더 */}
+      <div className="flex items-center justify-between">
+        <Link 
+          to="/"
+          className="text-blue-600 hover:text-blue-800 flex items-center space-x-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+          <span>목록으로</span>
+        </Link>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg shadow-sm border">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">새 매물 등록</h1>
+        {error && (
+          <div className="mb-4 p-3 rounded bg-red-50 text-red-700 text-sm">{error}</div>
+        )}
+        <form onSubmit={onSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">매물명 *</label>
+              <input name="propertyName" value={form.propertyName} onChange={onChange} className="w-full border rounded px-3 py-2" placeholder="예: 한남 트윈빌" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">소재지</label>
+              <input name="address" value={form.address || ''} onChange={onChange} className="w-full border rounded px-3 py-2" placeholder="예: 한남동 26-10" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">담당자</label>
+              <input name="agent" value={form.agent || ''} onChange={onChange} className="w-full border rounded px-3 py-2" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">매물종류</label>
+              <input name="propertyType" value={form.propertyType || ''} onChange={onChange} className="w-full border rounded px-3 py-2" placeholder="아파트/오피스텔 등" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">거래유형</label>
+              <input name="transactionType" value={form.transactionType || ''} onChange={onChange} className="w-full border rounded px-3 py-2" placeholder="매매/전세/월세" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">매물상태</label>
+              <input name="propertyStatus" value={form.propertyStatus || ''} onChange={onChange} className="w-full border rounded px-3 py-2" placeholder="거래가능/거래완료 등" />
+            </div>
+          </div>
+          <div className="flex items-center space-x-3">
+            <input id="sharedStatus" type="checkbox" name="sharedStatus" checked={!!form.sharedStatus} onChange={onChange} className="h-4 w-4" />
+            <label htmlFor="sharedStatus" className="text-sm text-gray-700">공유 매물</label>
+          </div>
+          <div className="flex space-x-3">
+            <button disabled={submitting} type="submit" className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50">
+              {submitting ? '저장 중...' : '저장'}
+            </button>
+            <Link to="/" className="px-4 py-2 rounded-lg border text-gray-700">취소</Link>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default PropertyForm

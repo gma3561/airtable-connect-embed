@@ -16,6 +16,30 @@ const QuerySchema = z.object({
   offset: z.coerce.number().int().min(0).optional()
 });
 
+const CreateSchema = z.object({
+  propertyName: z.string().trim().min(1, 'propertyName is required'),
+  address: z.string().trim().optional(),
+  buildingDong: z.string().trim().optional(),
+  buildingHo: z.string().trim().optional(),
+  propertyType: z.string().trim().optional(),
+  transactionType: z.string().trim().optional(),
+  propertyStatus: z.string().trim().optional(),
+  price: z.string().trim().optional(),
+  contractPeriod: z.string().trim().optional(),
+  rentalAmount: z.string().trim().optional(),
+  rentalType: z.string().trim().optional(),
+  resident: z.string().trim().optional(),
+  completionDate: z.string().trim().optional(),
+  reregistrationReason: z.string().trim().optional(),
+  agentMemo: z.string().trim().optional(),
+  specialNotes: z.string().trim().optional(),
+  registrationDate: z.string().trim().optional(),
+  sharedStatus: z.boolean().optional(),
+  agent: z.string().trim().optional()
+});
+
+const UpdateSchema = CreateSchema.partial();
+
 export class PropertyController {
   constructor(private readonly service = new PropertyService()) {}
 
@@ -39,5 +63,25 @@ export class PropertyController {
     });
 
     res.json({ items });
+  };
+
+  create = async (req: Request, res: Response) => {
+    const parsed = CreateSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: "Invalid body", details: parsed.error.flatten() });
+    }
+    const id = await this.service.create(parsed.data);
+    return res.status(201).json({ id });
+  };
+
+  update = async (req: Request, res: Response) => {
+    const id = String(req.params.id || '');
+    if (!id) return res.status(400).json({ error: 'Missing id' });
+    const parsed = UpdateSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: "Invalid body", details: parsed.error.flatten() });
+    }
+    await this.service.update(id, parsed.data);
+    return res.json({ ok: true });
   };
 }
