@@ -84,4 +84,24 @@ export class PropertyController {
     await this.service.update(id, parsed.data);
     return res.json({ ok: true });
   };
+
+  findById = async (req: Request, res: Response) => {
+    const id = String(req.params.id || '');
+    if (!id) return res.status(400).json({ error: 'Missing id' });
+    
+    const property = await this.service.findById(id);
+    if (!property) {
+      return res.status(404).json({ error: 'Property not found' });
+    }
+    
+    return res.json(property);
+  };
+
+  delete = async (req: Request, res: Response) => {
+    const id = String(req.params.id || '');
+    if (!id) return res.status(400).json({ error: 'Missing id' });
+    
+    await this.service.delete(id);
+    return res.json({ ok: true });
+  };
 }

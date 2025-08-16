@@ -23,6 +23,14 @@ export class PropertyService {
     const dbPayload: Record<string, any> = mapCamelToSnakeForDb(payload);
     await this.repository.update(id, dbPayload);
   }
+
+  async findById(id: string): Promise<PropertyListItem | null> {
+    return this.repository.findById(id);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id);
+  }
 }
 
 function mapCamelToSnakeForDb(input: Record<string, unknown>): Record<string, any> {

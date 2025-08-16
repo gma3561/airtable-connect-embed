@@ -65,4 +65,50 @@ export class SupabasePropertyRepository {
       throw new Error(`Update failed: ${(error as PostgrestError).message}`);
     }
   }
+
+  async findById(id: string): Promise<PropertyListItem | null> {
+    const client = getSupabaseServiceClient();
+    const { data, error } = await client
+      .from('properties')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return null;
+      }
+      throw new Error(`Find by ID failed: ${(error as PostgrestError).message}`);
+    }
+
+    if (!data) return null;
+
+    return {
+      id: data.id,
+      registrationDate: data.registration_date ?? null,
+      sharedStatus: data.shared_status ?? null,
+      agent: data.agent ?? null,
+      propertyStatus: data.property_status ?? null,
+      propertyType: data.property_type ?? null,
+      transactionType: data.transaction_type ?? null,
+      price: data.price ?? null,
+      propertyName: data.property_name ?? null,
+      buildingDong: data.building_dong ?? null,
+      buildingHo: data.building_ho ?? null,
+      address: data.address ?? null,
+      updatedAt: data.updated_at
+    };
+  }
+
+  async delete(id: string): Promise<void> {
+    const client = getSupabaseServiceClient();
+    const { error } = await client
+      .from('properties')
+      .delete()
+      .eq('id', id);
+    
+    if (error) {
+      throw new Error(`Delete failed: ${(error as PostgrestError).message}`);
+    }
+  }
 }

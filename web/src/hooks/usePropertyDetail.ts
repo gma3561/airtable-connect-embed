@@ -1,12 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchPropertyById } from "../services/api";
+import { fetchPropertyById } from "../services/supabaseApi";
+import type { PropertyListItem } from "../types";
 
 /**
  * Custom hook to fetch a property detail with React Query
  * @param id Property ID
  */
 export function usePropertyDetail(id: string | undefined) {
-  return useQuery({
+  return useQuery<PropertyListItem>({
     queryKey: ["property", id],
     queryFn: () => {
       if (!id) throw new Error("Property ID is required");

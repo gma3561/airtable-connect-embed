@@ -1,0 +1,160 @@
+version: '3.8'
+
+# Mac Mini #1 (Master) - 중앙 제어 서버
+services:
+  # Tailscale 네트워크
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    hostname: mac-mini-master
+    environment:
+      - TS_AUTHKEY=${TS_AUTHKEY}
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+      - tailscale-state:/var/lib/tailscale
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    restart: unless-stopped
+
+  # 통합 MCP 게이트웨이
+  mcp-gateway:
+    build: ./mcp-gateway
+    container_name: mcp-gateway
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=${JWT_SECRET}
+      - TAILSCALE_IP=100.64.0.10
+    volumes:
+      - ./config:/app/config
+      - mcp-data:/app/data
+    depends_on:
+      - redis
+      - postgres
+    restart: unless-stopped
+
+  # MCP 서버들
+  mcp-sequential:
+    image: ghcr.io/sequential-thinking/mcp:latest
+    container_name: mcp-sequential
+    network_mode: "service:tailscale"
+    environment:
+      - SERVER_PORT=3001
+    restart: unless-stopped
+
+  mcp-context7:
+    image: context7/mcp-server:latest
+    container_name: mcp-context7
+    network_mode: "service:tailscale"
+    environment:
+      - SERVER_PORT=3002
+    restart: unless-stopped
+
+  mcp-magic:
+    image: magic/mcp-server:latest
+    container_name: mcp-magic
+    network_mode: "service:tailscale"
+    environment:
+      - SERVER_PORT=3003
+    restart: unless-stopped
+
+  # AI CLI 통합 서버
+  ai-cli-hub:
+    build: ./ai-cli-hub
+    container_name: ai-cli-hub
+    ports:
+      - "9000:9000"
+    environment:
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - CURSOR_TOKEN=${CURSOR_TOKEN}
+    volumes:
+      - ./ai-configs:/app/configs
+      - ai-cache:/app/cache
+    restart: unless-stopped
+
+  # Supabase 로컬 인스턴스
+  supabase-db:
+    image: supabase/postgres:15.1.0.117
+    container_name: supabase-db
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=supabase
+    volumes:
+      - supabase-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  supabase-auth:
+    image: supabase/gotrue:v2.99.0
+    container_name: supabase-auth
+    ports:
+      - "9999:9999"
+    environment:
+      - GOTRUE_DB_DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@supabase-db:5432/supabase
+      - GOTRUE_JWT_SECRET=${JWT_SECRET}
+    depends_on:
+      - supabase-db
+    restart: unless-stopped
+
+  # Redis 캐싱
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  # PostgreSQL 메타데이터
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB=unified_system
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # 모니터링
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/dashboards:/etc/grafana/provisioning/dashboards
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+
+volumes:
+  tailscale-state:
+  mcp-data:
+  ai-cache:
+  supabase-data:
+  redis-data:
+  postgres-data:
+  grafana-data:
+  prometheus-data:

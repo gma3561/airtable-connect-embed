@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom'
 import type { PropertyListItem } from '../types'
-import Badge from './Badge'
 
 interface PropertyTableProps {
   properties: PropertyListItem[]

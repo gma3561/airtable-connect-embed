@@ -1,7 +1,7 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import cors from "cors";
-import { PropertyController } from "./PropertyController.js";
-import { requestLogger } from "./logging.js";
+import { PropertyController } from "../server/src/http/PropertyController.js";
+import { requestLogger } from "../server/src/http/logging.js";
 
 const app = express();
 app.use(cors());
@@ -10,15 +10,11 @@ app.use(requestLogger());
 
 const propertyController = new PropertyController();
 
-app.get("/api/health", (_req: Request, res: Response) => res.json({ ok: true }));
+app.get("/api/health", (_req, res) => res.json({ ok: true }));
 app.get("/api/properties/search", propertyController.search);
 app.get("/api/properties/:id", propertyController.findById);
 app.post("/api/properties", propertyController.create);
 app.put("/api/properties/:id", propertyController.update);
 app.delete("/api/properties/:id", propertyController.delete);
 
-const port = Number(process.env.PORT || 8787);
-app.listen(port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Server listening on http://localhost:${port}`);
-});
+export default app;

@@ -65,7 +65,7 @@ const PropertyDetail = () => {
           <span>목록으로</span>
         </Link>
         <Link 
-          to={`/property/edit/${property.id}`}
+          to={`/property/${property.id}/edit`}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
         >
           수정
@@ -120,7 +120,7 @@ const PropertyDetail = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">준공일</label>
-            <p className="mt-1 text-sm text-gray-900">{property.completionDate || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">등록일</label>
@@ -141,15 +141,15 @@ const PropertyDetail = () => {
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">월세</label>
-            <p className="mt-1 text-sm text-gray-900">{property.rentalAmount || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">계약기간</label>
-            <p className="mt-1 text-sm text-gray-900">{property.contractPeriod || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">거주자</label>
-            <p className="mt-1 text-sm text-gray-900">{property.resident || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
         </div>
       </div>
@@ -160,15 +160,15 @@ const PropertyDetail = () => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">담당자 메모</label>
-            <p className="mt-1 text-sm text-gray-900">{property.agentMemo || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">특이사항</label>
-            <p className="mt-1 text-sm text-gray-900">{property.specialNotes || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">재등록 사유</label>
-            <p className="mt-1 text-sm text-gray-900">{property.reregistrationReason || '-'}</p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
         </div>
       </div>
@@ -179,21 +179,15 @@ const PropertyDetail = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700">사진</label>
-            <p className="mt-1 text-sm text-gray-900">
-              {property.photos.length > 0 ? `${property.photos.length}개` : '없음'}
-            </p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">영상</label>
-            <p className="mt-1 text-sm text-gray-900">
-              {property.videos.length > 0 ? `${property.videos.length}개` : '없음'}
-            </p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700">문서</label>
-            <p className="mt-1 text-sm text-gray-900">
-              {property.documents.length > 0 ? `${property.documents.length}개` : '없음'}
-            </p>
+            <p className="mt-1 text-sm text-gray-900">-</p>
           </div>
         </div>
       </div>
@@ -201,35 +195,7 @@ const PropertyDetail = () => {
   )
 }
 
-const DetailSkeleton = () => {
-  return (
-    <div className="space-y-6">
-      <div className="bg-white p-6 rounded-lg shadow-sm border">
-        <div className="h-8 bg-gray-200 rounded animate-pulse mb-4"></div>
-        <div className="flex gap-2 mb-6">
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-6 w-20 bg-gray-200 rounded animate-pulse"></div>
-          ))}
-        </div>
-        <div className="h-4 bg-gray-200 rounded animate-pulse w-32"></div>
-      </div>
-      
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="bg-white p-6 rounded-lg shadow-sm border">
-          <div className="h-6 bg-gray-200 rounded animate-pulse mb-4"></div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {Array.from({ length: 4 }).map((_, j) => (
-              <div key={j}>
-                <div className="h-4 bg-gray-200 rounded animate-pulse mb-2"></div>
-                <div className="h-4 bg-gray-200 rounded animate-pulse"></div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
+// Skeleton removed (unused)
 
 
 export default PropertyDetail

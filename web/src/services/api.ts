@@ -66,3 +66,33 @@ export const createProperty = async (body: PropertyCreateRequest): Promise<{ id:
   }
   return response.json();
 };
+
+/**
+ * Updates an existing property
+ */
+export const updateProperty = async (id: string, body: PropertyCreateRequest): Promise<void> => {
+  const url = `${API_BASE_URL}/api/properties/${id}`;
+  const response = await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to update property');
+  }
+};
+
+/**
+ * Deletes a property by ID
+ */
+export const deleteProperty = async (id: string): Promise<void> => {
+  const url = `${API_BASE_URL}/api/properties/${id}`;
+  const response = await fetch(url, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to delete property');
+  }
+};

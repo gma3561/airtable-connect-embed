@@ -1,4 +1,4 @@
-import { SearchParams } from "../types";
+import type { SearchParams } from "../types";
 
 /**
  * Extracts search parameters from URL search params

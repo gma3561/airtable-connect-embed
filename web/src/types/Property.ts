@@ -40,6 +40,18 @@ export interface PropertyListItem {
   registrationDate: string
   sharedStatus: string
   updatedAt: string
+  // Additional fields for detail view
+  contractPeriod?: string
+  rentalAmount?: string
+  rentalType?: string
+  resident?: string
+  completionDate?: string
+  reregistrationReason?: string
+  agentMemo?: string
+  specialNotes?: string
+  photos?: string[]
+  videos?: string[]
+  documents?: string[]
 }
 
 export interface SearchFilters {

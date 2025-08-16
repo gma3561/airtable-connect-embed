@@ -1,4 +1,5 @@
-import 'dotenv/config';
+import { config } from 'dotenv';
+config({ path: '.env' });
 import { createReadStream } from 'node:fs';
 import { basename, resolve } from 'node:path';
 import { createClient } from '@supabase/supabase-js';

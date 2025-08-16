@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
-import { createProperty } from '../services/api'
+import { createProperty } from '../services/supabaseApi'
 import type { PropertyCreateRequest } from '../types'
 
 const PropertyForm = () => {

@@ -1,4 +1,4 @@
-import { SearchFilters } from '../types/Property'
+import type { SearchFilters } from '../types/Property'
 
 interface FilterPanelProps {
   filters: SearchFilters

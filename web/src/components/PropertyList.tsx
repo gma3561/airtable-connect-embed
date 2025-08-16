@@ -102,10 +102,10 @@ const PropertyList = () => {
           {/* 결과 개수 */}
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-600">
-              검색 결과: {data.items.length}건
+              검색 결과: {data?.items?.length ?? 0}건
             </div>
             <div className="text-sm text-gray-600">
-              {params.offset + 1} - {Math.min((params.offset || 0) + (params.limit || DEFAULT_LIMIT), (params.offset || 0) + data.items.length)} 표시
+              {(params.offset || 0) + 1} - {Math.min((params.offset || 0) + (params.limit || DEFAULT_LIMIT), (params.offset || 0) + (data?.items?.length || 0))} 표시
             </div>
           </div>
 

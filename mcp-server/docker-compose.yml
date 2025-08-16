@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mcp-server:
+    build: .
+    ports:
+      - "3000:3000"  # MCP 서버 포트
+    volumes:
+      - ./config:/app/config
+      - ./data:/app/data
+    environment:
+      - MCP_MODE=server
+      - MCP_AUTH_TOKEN=${MCP_AUTH_TOKEN}
+    restart: unless-stopped
+    
+  # MCP 플러그인들을 개별 서비스로 실행
+  mcp-sequential:
+    image: mcp-sequential:latest
+    environment:
+      - SERVER_MODE=remote
+    
+  mcp-context7:
+    image: mcp-context7:latest
+    environment:
+      - SERVER_MODE=remote
+      
+  mcp-magic:
+    image: mcp-magic:latest
+    environment:
+      - SERVER_MODE=remote
