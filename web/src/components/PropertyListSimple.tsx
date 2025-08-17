@@ -59,6 +59,10 @@ const PropertyListSimple = () => {
   const properties = data.items || []
   const currentPage = Math.floor((params.offset || 0) / DEFAULT_LIMIT) + 1
   
+  // 디버그용 로그
+  console.log('PropertyListSimple - data:', data)
+  console.log('PropertyListSimple - properties:', properties)
+  
   return (
     <div className="p-6 space-y-6">
       {/* Search Bar */}
@@ -163,7 +167,7 @@ const PropertyListSimple = () => {
 
       {/* Property Detail Modal */}
       {selectedPropertyId && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[60] p-4">
           <div className="bg-background rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-4 border-b flex items-center justify-between">
               <h2 className="text-lg font-semibold">매물 상세 정보</h2>
