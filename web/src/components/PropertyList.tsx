@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { usePropertySearch } from '../hooks/usePropertySearch'
 import { getSearchParamsFromURL, updateURLSearchParams } from '../utils/urlSync'
 import type { SearchParams, PropertyListResponse } from '../types'
@@ -69,16 +69,13 @@ const PropertyList = () => {
   
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       {/* 페이지 헤더 */}
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-900">매물 목록</h2>
-        <Link 
-          to="/property/new"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          + 새 매물 등록
-        </Link>
+        <div>
+          <h2 className="text-2xl font-bold text-foreground">매물 목록</h2>
+          <p className="text-muted-foreground">전체 매물을 조회하고 관리합니다</p>
+        </div>
       </div>
 
       {/* 상단 툴바: 필터/정렬/검색 */}
@@ -107,20 +104,21 @@ const PropertyList = () => {
         <EmptyState message={params.q ? `"${params.q}" 검색 결과가 없습니다.` : "매물 정보가 없습니다."} />
       ) : (
         <div className="grid grid-cols-1 xl:grid-cols-[1fr_420px] gap-6 items-start">
-          <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+          <div className="bg-card rounded-lg shadow-sm border overflow-hidden">
             {/* 결과 개수 */}
-            <div className="flex items-center justify-between px-4 py-2 border-b bg-gray-50">
-              <div className="text-sm text-gray-600">검색 결과: {data?.items?.length ?? 0}건</div>
-              <div className="text-sm text-gray-600">
+            <div className="flex items-center justify-between px-4 py-2 border-b bg-muted/30">
+              <div className="text-sm text-muted-foreground">검색 결과: {data?.items?.length ?? 0}건</div>
+              <div className="text-sm text-muted-foreground">
                 {(params.offset || 0) + 1} - {Math.min((params.offset || 0) + (params.limit || DEFAULT_LIMIT), (params.offset || 0) + (data?.items?.length || 0))} 표시
               </div>
             </div>
-            <PropertyTable 
-              properties={data.items} 
-              isLoading={isLoading}
-              searchQuery={params.q}
-              onRowClick={(id) => setSelectedId(id)}
-            />
+             <PropertyTable 
+               properties={data.items} 
+               isLoading={isLoading}
+               searchQuery={params.q}
+               onRowClick={(id) => setSelectedId(id)}
+               selectedId={selectedId}
+             />
             {/* 페이지네비게이션 */}
             <div className="px-4 py-3 border-t">
               <Pagination
@@ -133,13 +131,13 @@ const PropertyList = () => {
           </div>
 
           {/* 우측 디테일 슬라이드 패널 */}
-          <div className={`bg-white rounded-lg shadow-sm border h-[80vh] overflow-y-auto sticky top-6 ${selectedId ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+          <div className={`bg-card rounded-lg shadow-sm border h-[80vh] overflow-y-auto sticky top-6 ${selectedId ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
             {selectedId ? (
               <div className="p-4">
                 <PropertyDetail id={selectedId} />
               </div>
             ) : (
-              <div className="h-full flex items-center justify-center text-gray-400 text-sm">행을 클릭하면 상세가 표시됩니다</div>
+              <div className="h-full flex items-center justify-center text-muted-foreground text-sm">행을 클릭하면 상세가 표시됩니다</div>
             )}
           </div>
         </div>

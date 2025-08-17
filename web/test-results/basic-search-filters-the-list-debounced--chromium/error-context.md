@@ -1,0 +1,715 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - link "🏠 Interface 더부동산 임시매물장":
+    - /url: "#/"
+  - navigation:
+    - link "매물 등록":
+      - /url: "#/property/new"
+- main:
+  - heading "매물 목록" [level=2]
+  - link "+ 새 매물 등록":
+    - /url: "#/property/new"
+  - text: 매물 종류
+  - combobox "매물 종류":
+    - option "선택..." [selected]
+    - option "아파트"
+    - option "빌라"
+    - option "오피스텔"
+    - option "단독주택"
+    - option "상가"
+  - text: 거래 유형
+  - combobox "거래 유형":
+    - option "선택..." [selected]
+    - option "매매"
+    - option "전세"
+    - option "월세"
+    - option "단기임대"
+  - text: 진행 상태
+  - combobox "진행 상태":
+    - option "선택..." [selected]
+    - option "거래가능"
+    - option "계약중"
+    - option "거래완료"
+    - option "보류"
+  - button "Filter"
+  - button "Sort 1"
+  - button "검색":
+    - img
+  - searchbox "검색어 입력"
+  - text: "검색 결과: 50건 1 - 50 표시"
+  - table "매물 목록":
+    - rowgroup:
+      - row "등록일 공유 담당자 상태 종류 유형 금액 매물명 동/호 공급/전용(㎡) 공급/전용(평) 해당층/총층":
+        - cell "등록일"
+        - cell "공유"
+        - cell "담당자"
+        - cell "상태"
+        - cell "종류"
+        - cell "유형"
+        - cell "금액"
+        - cell "매물명"
+        - cell "동/호"
+        - cell "공급/전용(㎡)"
+        - cell "공급/전용(평)"
+        - cell "해당층/총층"
+    - rowgroup:
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+      - row "- 비공유 - - - -":
+        - cell "-"
+        - cell "비공유"
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell
+        - cell "-"
+        - cell "-"
+        - cell "-"
+        - cell "-"
+  - navigation "페이지네이션":
+    - paragraph: 1 - 50 / 약 2562 결과
+    - navigation "Pagination":
+      - button "이전 페이지" [disabled]
+      - text: 1 / 52
+      - button "다음 페이지"
+  - text: 행을 클릭하면 상세가 표시됩니다
+```

@@ -1,16 +1,18 @@
-import { useState } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { AppLayout } from './components/AppLayout'
-import { Dashboard } from './components/Dashboard'
-import PropertyList from './components/PropertyList'
-import PropertyForm from './components/PropertyForm'
-import './App.css'
+import { useState } from "react"
+import { AppLayout } from "./components/AppLayout"
+import { Dashboard } from "./components/Dashboard"
+import { ClubRegistration } from "./components/ClubRegistration"
+import { ClubManagement } from "./components/ClubManagement"
+import { SportsManagement } from "./components/SportsManagement"
+import { DepartmentManagement } from "./components/DepartmentManagement"
+import { LicenseTypeManagement } from "./components/LicenseTypeManagement"
+import { PlayerPositionManagement } from "./components/PlayerPositionManagement"
+import { TestManagement } from "./components/TestManagement"
+import { TestSessionManagement } from "./components/TestSessionManagement"
 
-const queryClient = new QueryClient()
+type AppView = "dashboard" | "management" | "registration" | "stats" | "reports" | "users" | "sports" | "departments" | "licenses" | "positions" | "tests" | "test-sessions" | "settings"
 
-type AppView = "dashboard" | "properties" | "new-property" | "stats" | "reports" | "users" | "settings"
-
-function App() {
+export default function App() {
   const [currentView, setCurrentView] = useState<AppView>("dashboard")
 
   const handleViewChange = (view: string) => {
@@ -22,20 +24,24 @@ function App() {
       case "dashboard":
         return <Dashboard />
       
-      case "properties":
-        return <PropertyList />
+      case "management":
+        return (
+          <ClubManagement 
+            onNewRegistration={() => setCurrentView("registration")} 
+          />
+        )
       
-      case "new-property":
+      case "registration":
         return (
           <div className="p-6">
-            <PropertyForm />
-            {/* Back to properties button */}
+            <ClubRegistration />
+            {/* Back to management button */}
             <div className="fixed bottom-6 right-6">
               <button
-                onClick={() => setCurrentView("properties")}
+                onClick={() => setCurrentView("management")}
                 className="bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg hover:bg-primary/90 transition-colors"
               >
-                ← 매물 목록으로 돌아가기
+                ← 클럽 관리로 돌아가기
               </button>
             </div>
           </div>
@@ -71,6 +77,24 @@ function App() {
           </div>
         )
       
+      case "sports":
+        return <SportsManagement />
+      
+      case "departments":
+        return <DepartmentManagement />
+      
+      case "licenses":
+        return <LicenseTypeManagement />
+      
+      case "positions":
+        return <PlayerPositionManagement />
+      
+      case "tests":
+        return <TestManagement />
+      
+      case "test-sessions":
+        return <TestSessionManagement />
+      
       case "settings":
         return (
           <div className="p-6">
@@ -87,12 +111,8 @@ function App() {
   }
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AppLayout currentView={currentView} onViewChange={handleViewChange}>
-        {renderContent()}
-      </AppLayout>
-    </QueryClientProvider>
+    <AppLayout currentView={currentView} onViewChange={handleViewChange}>
+      {renderContent()}
+    </AppLayout>
   )
 }
-
-export default App

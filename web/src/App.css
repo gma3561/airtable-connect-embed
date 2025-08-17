@@ -1,7 +1,12 @@
+@import './globals.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* App-specific styles */
 .app-container {
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: var(--background);
 }
 
 /* Custom scrollbar */
@@ -11,23 +16,18 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--muted);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
+  background: var(--muted-foreground);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Focus styles for accessibility */
-*:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+  background: var(--foreground);
+  opacity: 0.6;
 }
 
 /* Loading animation */
