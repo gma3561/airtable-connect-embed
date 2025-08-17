@@ -6,7 +6,7 @@ import type { PropertyListItem } from '../types'
 
 export function Dashboard() {
   // Fetch all properties to calculate statistics
-  const { data } = usePropertySearch({ limit: 1000 })
+  const { data } = usePropertySearch({ limit: 10000 })
   
   const properties = data?.items || []
   
