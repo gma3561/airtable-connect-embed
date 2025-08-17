@@ -146,7 +146,13 @@ export function AppLayout({ children, currentView, onViewChange }: AppLayoutProp
                       .find(item => item.id === currentView)?.title || "대시보드"}
                   </h1>
                   <p className="text-sm text-muted-foreground">
-                    부동산 매물 관리 시스템
+                    {currentView === 'dashboard' && '매물 현황을 한눈에 확인하세요'}
+                    {currentView === 'properties' && '전체 매물 목록을 관리합니다'}
+                    {currentView === 'new-property' && '새로운 매물을 등록합니다'}
+                    {currentView === 'stats' && '통계 및 분석 데이터를 확인합니다'}
+                    {currentView === 'reports' && '각종 보고서를 생성하고 관리합니다'}
+                    {currentView === 'users' && '사용자 계정을 관리합니다'}
+                    {currentView === 'settings' && '시스템 설정을 관리합니다'}
                   </p>
                 </div>
               </div>
