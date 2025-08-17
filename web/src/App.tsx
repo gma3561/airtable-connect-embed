@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AppLayout } from './components/AppLayout'
 import { Dashboard } from './components/Dashboard'
-import PropertyList from './components/PropertyList'
+import PropertyListSimple from './components/PropertyListSimple'
 import PropertyForm from './components/PropertyForm'
 import './App.css'
 
@@ -23,7 +23,7 @@ function App() {
         return <Dashboard />
       
       case "properties":
-        return <PropertyList />
+        return <PropertyListSimple />
       
       case "new-property":
         return (
