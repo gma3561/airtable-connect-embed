@@ -2,59 +2,53 @@
 
 ## 필수 환경 변수
 
-### 1. 프론트엔드 (Web) 환경 변수
+### 1. Supabase 연결 설정
 
 Vercel 대시보드에서 다음 환경 변수를 추가해야 합니다:
 
 ```
-VITE_API_BASE_URL=https://your-backend-url.vercel.app
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
 **중요**: 
 - `NEXT_PUBLIC_` 프리픽스가 아닌 `VITE_` 프리픽스를 사용해야 합니다
 - 이 프로젝트는 Next.js가 아닌 Vite를 사용합니다
+- 프론트엔드가 Supabase를 직접 사용하므로 별도의 백엔드 서버는 필요하지 않습니다
 
-### 2. 백엔드 서버 배포
-
-현재 프론트엔드만 배포되어 있고, 백엔드 서버가 배포되지 않아 데이터를 가져올 수 없습니다.
-
-백엔드 서버는 다음 중 하나의 방법으로 배포해야 합니다:
-
-#### 옵션 1: Vercel Edge Functions (권장)
-1. `api` 폴더를 생성하고 서버 코드를 Edge Function으로 변환
-2. Supabase 연결을 위한 환경 변수 설정:
-   ```
-   SUPABASE_URL=your-supabase-url
-   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-   ```
-
-#### 옵션 2: 별도 서버 배포
-1. 백엔드를 별도의 서비스(Railway, Render, Fly.io 등)에 배포
-2. 배포된 백엔드 URL을 `VITE_API_BASE_URL`에 설정
-
-### 3. Vercel 환경 변수 설정 방법
+### 2. Vercel 환경 변수 설정 방법
 
 1. Vercel 대시보드에서 프로젝트 선택
 2. Settings → Environment Variables 이동
 3. 다음 변수 추가:
-   - Key: `VITE_API_BASE_URL`
-   - Value: 백엔드 서버 URL (예: `https://api.yourdomain.com`)
+   
+   **VITE_SUPABASE_URL**
+   - Key: `VITE_SUPABASE_URL`
+   - Value: Supabase 프로젝트 URL (예: `https://xxxx.supabase.co`)
    - Environment: Production, Preview, Development 모두 체크
-4. "Save" 클릭
+   
+   **VITE_SUPABASE_ANON_KEY**
+   - Key: `VITE_SUPABASE_ANON_KEY`
+   - Value: Supabase 익명 키
+   - Environment: Production, Preview, Development 모두 체크
 
-### 4. 로컬 개발 환경 설정
+4. "Save" 클릭
+5. 재배포하기 (Deployments → 최신 배포 → ... 메뉴 → Redeploy)
+
+### 3. 로컬 개발 환경 설정
 
 `web/.env.local` 파일 생성:
 ```
-VITE_API_BASE_URL=http://localhost:8787
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
 
-`server/.env` 파일 생성:
-```
-SUPABASE_URL=your-supabase-url
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
-PORT=8787
-```
+### 4. Supabase 프로젝트 설정 확인
+
+Supabase 대시보드에서:
+1. `properties` 테이블이 존재하는지 확인
+2. RLS (Row Level Security) 정책이 설정되어 있는지 확인
+3. `search_properties` RPC 함수가 생성되어 있는지 확인
 
 ## 문제 해결
 
@@ -75,12 +69,13 @@ PORT=8787
 ## 현재 상태
 
 - ✅ 프론트엔드 UI 배포 완료
-- ❌ 백엔드 서버 미배포
+- ✅ 대시보드 디자인 적용 완료
+- ✅ Supabase 직접 연결 코드 구현 완료
 - ❌ 환경 변수 미설정
-- ❌ 데이터 연결 안됨
+- ❌ 실제 데이터 연결 안됨 (목업 데이터 표시 중)
 
 ## 다음 단계
 
-1. 백엔드 서버 배포 방식 결정
-2. Vercel 환경 변수 설정
-3. 재배포 후 데이터 연결 확인
+1. Vercel에서 Supabase 환경 변수 설정
+2. 재배포하여 실제 데이터 연결 확인
+3. Supabase에서 테이블 및 RPC 함수 확인
