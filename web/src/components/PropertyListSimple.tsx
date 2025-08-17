@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/
 import { Badge } from "./ui/badge"
 import { Button } from "./ui/button"
 import { Input } from "./ui/input"
-import { Search, Filter, ChevronLeft, ChevronRight } from "lucide-react"
+import { Search, ChevronLeft, ChevronRight } from "lucide-react"
 import PropertyDetail from './PropertyDetail'
 import LoadingState from './LoadingState'
 import EmptyState from './EmptyState'
